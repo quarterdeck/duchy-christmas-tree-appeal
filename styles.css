@@ -146,10 +146,20 @@ h2 {
   font-size: 9px;
 }
 
+.pixel-button.music-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
 .music-note {
   display: inline-block;
   position: relative;
-  font-size: 14px;
+  font-size: 28px;
+  line-height: 1;
 }
 
 .music-button[aria-pressed="true"] .music-note {
@@ -159,12 +169,14 @@ h2 {
 .music-button[aria-pressed="false"] .music-note::after {
   content: '';
   position: absolute;
-  left: -3px;
-  right: -3px;
+  left: -6px;
+  right: -6px;
   top: 50%;
   height: 3px;
   margin-top: -1px;
   background: var(--white);
+  /* A red edge keeps the note shape clear where the line crosses it. */
+  box-shadow: 0 0 0 2px var(--red);
   transform: rotate(-45deg);
 }
 
