@@ -25,7 +25,7 @@ The QR code maker is at
 | --- | --- |
 | Drop-off date and place shown on the tag | `NEXT_STEP_MESSAGE` in `app.js` |
 | Tag colours and icons on the tree | `TAG_COLOURS` and `TAG_ICONS` in `app.js` |
-| Interests for each age band | `INTERESTS_BY_AGE` in `tags.js` |
+| Gift ideas for each year group (unisex and girls only) | `GIFTS_BY_YEAR` in `tags.js` |
 | Songs | `SONGS` in `music.js` |
 | Colours | `:root` in `styles.css` |
 

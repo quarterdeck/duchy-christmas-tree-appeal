@@ -1,4 +1,67 @@
 // Tags are random examples, not real children.
+// Gift lists come from the school. Girls-only gifts never go on a boy's tag.
+
+const RECEPTION_TO_YEAR_2_GIFTS = {
+  unisexGifts: [
+    'dinosaurs', 'cars', 'monsters', 'Lego', 'princesses', 'colouring books', 'craft',
+    'Frozen', 'teddies', 'animals', 'books', 'football', 'jigsaws', 'fairies', 'kittens',
+  ],
+  girlsOnlyGifts: [],
+};
+
+const YEAR_3_GIFTS = {
+  unisexGifts: [
+    'dinosaurs', 'cars', 'monsters', 'Lego', 'colouring books', 'craft', 'teddies',
+    'animals', 'books', 'football', 'jigsaws',
+  ],
+  girlsOnlyGifts: ['fairies', 'kittens', 'princesses', 'Frozen'],
+};
+
+const YEAR_4_TO_6_UNISEX_GIFTS = [
+  'dinosaurs', 'cars', 'Lego', 'colouring books', 'craft', 'animals', 'books', 'football',
+  'jigsaws', 'games', 'puzzles',
+];
+
+const YEAR_4_GIFTS = {
+  unisexGifts: YEAR_4_TO_6_UNISEX_GIFTS,
+  girlsOnlyGifts: ['teddies'],
+};
+
+const YEAR_5_TO_6_GIFTS = {
+  unisexGifts: YEAR_4_TO_6_UNISEX_GIFTS,
+  girlsOnlyGifts: ['make up', 'toiletries (Primark, Lush)'],
+};
+
+const COOL_TOILETRIES =
+  'cool toiletries (Indu, Lav Teens, Blossom & Beau, Bare la Terre, Sundae whipped shower foam, Monday hair care, Bubble)';
+const SECONDARY_GIRLS_ONLY_GIFTS = ['make up', 'crafts', 'manicure set', 'nail polish'];
+
+const YEAR_7_TO_9_GIFTS = {
+  unisexGifts: ['animals', 'books', 'football', 'games', 'puzzles', COOL_TOILETRIES],
+  girlsOnlyGifts: SECONDARY_GIRLS_ONLY_GIFTS,
+};
+
+const YEAR_10_TO_13_GIFTS = {
+  unisexGifts: ['books', 'football', 'games', 'puzzles', COOL_TOILETRIES],
+  girlsOnlyGifts: SECONDARY_GIRLS_ONLY_GIFTS,
+};
+
+const GIFTS_BY_YEAR = [
+  RECEPTION_TO_YEAR_2_GIFTS, // Reception
+  RECEPTION_TO_YEAR_2_GIFTS, // Year 1
+  RECEPTION_TO_YEAR_2_GIFTS, // Year 2
+  YEAR_3_GIFTS,
+  YEAR_4_GIFTS,
+  YEAR_5_TO_6_GIFTS, // Year 5
+  YEAR_5_TO_6_GIFTS, // Year 6
+  YEAR_7_TO_9_GIFTS, // Year 7
+  YEAR_7_TO_9_GIFTS, // Year 8
+  YEAR_7_TO_9_GIFTS, // Year 9
+  YEAR_10_TO_13_GIFTS, // Year 10
+  YEAR_10_TO_13_GIFTS, // Year 11
+  YEAR_10_TO_13_GIFTS, // Year 12
+  YEAR_10_TO_13_GIFTS, // Year 13
+];
 
 const YEAR_NAMES = ['Reception', ...Array.from({ length: 13 }, (_, i) => `Year ${i + 1}`)];
 
@@ -7,50 +70,10 @@ export const YEARS = YEAR_NAMES.map((name, index) => ({
   name,
   minAge: index + 4,
   maxAge: index + 5,
+  ...GIFTS_BY_YEAR[index],
 }));
 
-const INTERESTS_BY_AGE = [
-  {
-    maxAge: 7,
-    interests: [
-      'trains', 'dinosaurs', 'unicorns', 'building blocks', 'colouring', 'teddy bears',
-      'tractors', 'fairies', 'puzzles', 'bubbles', 'animals', 'diggers', 'dressing up',
-      'stickers', 'farm animals', 'cars', 'princesses', 'superheroes', 'painting',
-      'picture books', 'play dough', 'the seaside', 'space rockets', 'dolls', 'music',
-      'dancing', 'ball games', 'pirates', 'bugs and beetles', 'baking',
-    ],
-  },
-  {
-    maxAge: 11,
-    interests: [
-      'Lego', 'football', 'drawing', 'reading', 'slime', 'magic tricks', 'science kits',
-      'board games', 'card games', 'rugby', 'gymnastics', 'horses', 'space', 'crafts',
-      'remote control cars', 'dinosaurs', 'nature', 'swimming', 'baking', 'jewellery making',
-      'comics', 'skateboarding', 'music', 'dancing', 'puzzles', 'animals', 'gaming',
-      'camping', 'cooking', 'fashion design',
-    ],
-  },
-  {
-    maxAge: 15,
-    interests: [
-      'gaming', 'football', 'art', 'reading', 'music', 'skincare', 'make-up', 'fashion',
-      'rugby', 'photography', 'cooking', 'baking', 'films', 'anime', 'skateboarding',
-      'fitness', 'coding', 'drawing', 'surfing', 'nail art', 'basketball', 'hair styling',
-      'board games', 'writing stories', 'science', 'cycling', 'horse riding', 'guitar',
-      'animals', 'Lego',
-    ],
-  },
-  {
-    maxAge: 18,
-    interests: [
-      'gaming', 'football', 'music', 'fashion', 'skincare', 'make-up', 'photography',
-      'cooking', 'films', 'fitness', 'tech gadgets', 'art', 'reading', 'rugby', 'surfing',
-      'travel', 'gardening', 'cars', 'fragrance', 'anime', 'podcasts', 'baking', 'cycling',
-      'camping', 'coffee', 'drawing', 'basketball', 'nail art', 'football shirts',
-      'journalling',
-    ],
-  },
-];
+const TREATS = ['chocolates', 'sweets'];
 
 function randomInteger(min, max) {
   return min + Math.floor(Math.random() * (max - min + 1));
@@ -60,28 +83,23 @@ export function randomItem(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-function twoDifferentInterests(age) {
-  const { interests } = INTERESTS_BY_AGE.find((band) => age <= band.maxAge);
-  const first = randomItem(interests);
-  const second = randomItem(interests.filter((interest) => interest !== first));
-  return [first, second];
-}
-
-// `year` is an item of YEARS, or null for any age from 4 to 18.
+// `year` is an item of YEARS, or null for any year.
 // `gender` is 'girl', 'boy', or null for either.
 export function makeRandomTag({ year, gender }) {
-  const age = year ? randomInteger(year.minAge, year.maxAge) : randomInteger(4, 18);
+  const tagYear = year ?? randomItem(YEARS);
   const tagGender = gender ?? randomItem(['girl', 'boy']);
+  const gifts =
+    tagGender === 'girl' ? [...tagYear.unisexGifts, ...tagYear.girlsOnlyGifts] : tagYear.unisexGifts;
   return {
-    age,
+    age: randomInteger(tagYear.minAge, tagYear.maxAge),
     gender: tagGender,
-    interests: twoDifferentInterests(age),
+    gift: randomItem(gifts),
+    treat: randomItem(TREATS),
   };
 }
 
 // "an 8 year old", "an 11 year old", "an 18 year old", but "a 6 year old".
 export function describeTag(tag) {
   const article = [8, 11, 18].includes(tag.age) ? 'An' : 'A';
-  const [first, second] = tag.interests;
-  return `${article} ${tag.age} year old ${tag.gender} who loves ${first} and ${second}`;
+  return `${article} ${tag.age} year old ${tag.gender} who loves ${tag.gift} and ${tag.treat}`;
 }

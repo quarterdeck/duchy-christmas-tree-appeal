@@ -121,7 +121,8 @@ function savedTags() {
   const tags = readStorage(SAVED_TAGS_KEY, []);
   if (!Array.isArray(tags)) return [];
   const oldestAllowed = Date.now() - SAVED_TAG_LIFETIME_MS;
-  return tags.filter((tag) => tag.savedAt > oldestAllowed);
+  // Tags saved before the school's gift lists have no `gift`. Drop them.
+  return tags.filter((tag) => tag.savedAt > oldestAllowed && tag.gift);
 }
 
 function saveTag(tag) {
