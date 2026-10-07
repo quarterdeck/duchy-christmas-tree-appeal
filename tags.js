@@ -4,7 +4,6 @@ const YEAR_NAMES = ['Reception', ...Array.from({ length: 13 }, (_, i) => `Year $
 
 // Reception children are 4–5, Year 1 children are 5–6 … Year 13 students are 17–18.
 export const YEARS = YEAR_NAMES.map((name, index) => ({
-  shortName: index === 0 ? 'R' : `Y${index}`,
   name,
   minAge: index + 4,
   maxAge: index + 5,
@@ -74,7 +73,6 @@ export function makeRandomTag({ year, gender }) {
   const age = year ? randomInteger(year.minAge, year.maxAge) : randomInteger(4, 18);
   const tagGender = gender ?? randomItem(['girl', 'boy']);
   return {
-    code: `${year ? year.shortName : 'ANY'}-${tagGender === 'girl' ? 'G' : 'B'}-${randomInteger(1000, 9999)}`,
     age,
     gender: tagGender,
     interests: twoDifferentInterests(age),

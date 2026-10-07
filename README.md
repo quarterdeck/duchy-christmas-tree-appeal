@@ -2,7 +2,8 @@
 
 A virtual Christmas tree for Duchy College and Duchy Prep School, in aid of Barnardo's.
 People scan a QR code, tap a tag on a pixel-art tree in a snow globe, and get a tag
-such as "A 6 year old boy who loves trains and dinosaurs". They buy and wrap a present for that tag.
+such as "A 6 year old boy who loves trains and dinosaurs". They buy a present for that tag and bring it to school
+unwrapped. Barnardo's sorts and wraps the presents, so it must see what each one is.
 
 The tags are random examples, not real children. Two optional filters above the tree set the
 gender and the year group (Reception = 4–5 … Year 13 = 17–18). With no filters set, a tag can be
