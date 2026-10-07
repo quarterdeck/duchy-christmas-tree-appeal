@@ -91,6 +91,7 @@
         <select id="design">
           <option value="sticker">Round glitter sticker</option>
           <option value="poster">A4 poster</option>
+          <option value="square">Plain square QR code</option>
         </select>
       </label>
     </form>
@@ -215,6 +216,11 @@
       return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">${stickerContent(text)}</svg>`;
     }
 
+    // Plain square QR code on white, with a quiet zone around it.
+    function squareSvg(text) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000"><rect width="1000" height="1000" fill="#fff"/>${qrGroup(text, 500, 500, 840)}</svg>`;
+    }
+
     // A4 poster: 2100 × 2970 units (10 units per mm).
     function posterSvg(text) {
       const logo = logoDataUrl
@@ -235,7 +241,8 @@
 
     function currentSvg() {
       const text = finalUrl();
-      return byId('design').value === 'poster' ? posterSvg(text) : stickerSvg(text);
+      const designs = { sticker: stickerSvg, poster: posterSvg, square: squareSvg };
+      return designs[byId('design').value](text);
     }
 
     function render() {
