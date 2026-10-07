@@ -8,6 +8,10 @@ The tags are random examples, not real children. Two optional filters above the 
 gender and the year group (Reception = 4–5 … Year 13 = 17–18). With no filters set, a tag can be
 a girl or a boy of any age from 4 to 18.
 
+The title shows the current year. The tree is open from October to December. From January to
+September the page shows "Come back in October" (`isAppealOpen` in `app.js`). This check runs in
+the browser and uses the device's date, so it only hides the tree; it does not lock the site.
+
 Plain HTML, CSS and JavaScript. No build step. It runs on GitHub Pages:
 <https://quarterdeck.github.io/duchy-christmas-tree-appeal/>
 
@@ -30,6 +34,8 @@ The QR sticker and poster maker is at
 - `tags.js`: year groups and random tag text.
 - `tree.js`: the pixel-art tree (SVG) and where the tags hang.
 - `snow.js`: falling snow. Tap the globe to shake it.
+- `santa.js`: an 8-bit Santa and reindeer that fly across the page every 20–40 seconds.
+  Not shown if the device is set to reduce motion.
 - `music.js`: 8-bit carols made with the Web Audio API. Music starts after the first tap,
   because browsers block sound before that. On iOS 16.4 or later it plays with the silent switch
   on. On older iOS, turn the silent switch off.

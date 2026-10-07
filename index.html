@@ -15,6 +15,7 @@
 </head>
 <body>
   <canvas class="page-snow" aria-hidden="true"></canvas>
+  <div class="santa" id="santa" aria-hidden="true"></div>
 
   <header class="top-bar">
     <button type="button" class="pixel-button small" id="music-button" aria-pressed="false">♪ Music off</button>
@@ -22,11 +23,11 @@
   </header>
 
   <main>
-    <h1>Duchy Christmas<br>Tree Appeal</h1>
     <p class="partner">
       In aid of
       <img src="images/barnardos-logo.svg" alt="Barnardo's" width="144" height="36">
     </p>
+    <h1>Duchy Christmas<br>Tree Appeal <span id="appeal-year"></span></h1>
 
     <section id="tree-view">
       <p class="intro">Tap a tag on the tree. Then buy a present for a child who might not get much this Christmas.</p>
@@ -54,10 +55,14 @@
           <div class="shine" aria-hidden="true"></div>
         </div>
         <div class="base" aria-hidden="true">
-          <span class="plate">Duchy × Barnardo's</span>
+          <span class="plate">Duchy College × Barnardo's</span>
         </div>
       </div>
       <p class="hint">Tap the glass to shake the snow!</p>
+    </section>
+
+    <section id="closed-view" hidden>
+      <p class="intro">The tree is not up yet. Come back in October!</p>
     </section>
   </main>
 

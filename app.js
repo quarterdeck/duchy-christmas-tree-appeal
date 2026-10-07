@@ -1,6 +1,7 @@
 import { YEARS, makeRandomTag, describeTag, randomItem } from './tags.js';
 import { treeSvg, tagSpots } from './tree.js';
 import { startSnow } from './snow.js';
+import { startSanta } from './santa.js';
 import { startMusic, stopMusic } from './music.js';
 
 // TODO: confirm the date and place with the school office.
@@ -200,13 +201,25 @@ function startMusicOnFirstInteraction() {
 
 // --- Start -------------------------------------------------------------------
 
-renderFilters();
-renderTree();
+// The appeal runs from October to December. From January to September the tree is closed.
+const today = new Date();
+const isAppealOpen = today.getMonth() >= 9;
+byId('appeal-year').textContent = today.getFullYear();
+document.title = `Duchy Christmas Tree Appeal ${today.getFullYear()}`;
+
+if (isAppealOpen) {
+  renderFilters();
+  renderTree();
+} else {
+  byId('tree-view').hidden = true;
+  byId('closed-view').hidden = false;
+}
 updateMyTagsButton();
 updateMusicButton();
 startMusicOnFirstInteraction();
 
 startSnow(document.querySelector('.page-snow'), { flakeCount: 60, maxSize: 3 });
+startSanta(byId('santa'));
 const globeSnow = startSnow(document.querySelector('.globe-snow'), { flakeCount: 140, maxSize: 3 });
 
 byId('glass').addEventListener('click', (event) => {

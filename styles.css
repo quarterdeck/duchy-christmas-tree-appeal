@@ -45,6 +45,39 @@ button {
   z-index: 0;
 }
 
+/* --- Flying Santa ----------------------------------------------------------- */
+
+.santa {
+  --santa-width: clamp(140px, 30vw, 220px);
+  position: fixed;
+  left: 0;
+  width: var(--santa-width);
+  pointer-events: none;
+  z-index: 0;
+  visibility: hidden;
+}
+
+.santa svg {
+  display: block;
+  width: 100%;
+  animation: bob 0.8s ease-in-out infinite alternate;
+}
+
+.santa.flying {
+  visibility: visible;
+  animation: fly-across 9s linear;
+}
+
+@keyframes fly-across {
+  from { transform: translateX(calc(-1 * var(--santa-width))); }
+  to { transform: translateX(100vw); }
+}
+
+@keyframes bob {
+  from { transform: translateY(-4px); }
+  to { transform: translateY(4px); }
+}
+
 .top-bar,
 main {
   position: relative;
@@ -65,7 +98,7 @@ main {
 }
 
 h1 {
-  margin: 20px 0 8px;
+  margin: 8px 0 12px;
   font-size: clamp(18px, 6vw, 28px);
   line-height: 1.5;
   color: var(--gold);
@@ -82,7 +115,7 @@ h2 {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin: 0 0 12px;
+  margin: 20px 0 0;
   font-size: 10px;
 }
 
@@ -161,8 +194,8 @@ h2 {
 
 .gender-filter label span {
   display: block;
-  padding: 8px 10px;
-  font-size: 9px;
+  padding: 12px 14px;
+  font-size: 11px;
   border: 3px solid var(--white);
   background: var(--night-light);
   cursor: pointer;
@@ -174,9 +207,10 @@ h2 {
 }
 
 .year-filter select {
-  padding: 8px 10px;
+  min-height: 44px;
+  padding: 12px 16px;
   font: inherit;
-  font-size: 9px;
+  font-size: 11px;
   color: var(--white);
   background: var(--night-light);
   border: 3px solid var(--white);
@@ -262,7 +296,8 @@ h2 {
   font-size: 8px;
   padding: 4px 8px;
   border: 2px solid var(--gold-dark);
-  margin-top: 8px;
+  /* Side margin keeps the plate inside the sloped base; on small phones the text wraps. */
+  margin: 8px 16px 0;
 }
 
 .shaking {
