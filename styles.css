@@ -319,6 +319,39 @@ h2 {
   80% { transform: rotate(2deg); }
 }
 
+/* The elf hides behind the left side of the tree. It is first in .glass, so the tree paints on top. */
+.elf {
+  position: absolute;
+  left: 40%;
+  top: 40%;
+  width: 18%;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.elf svg {
+  display: block;
+  width: 100%;
+}
+
+.elf.popping {
+  visibility: visible;
+  animation: elf-pop 1.6s steps(3);
+}
+
+@keyframes elf-pop {
+  0%, 100% { transform: translateX(0); }
+  15%, 80% { transform: translateX(-150%); }
+  30% { transform: translateX(-150%) rotate(-8deg); }
+  45% { transform: translateX(-150%) rotate(8deg); }
+  60% { transform: translateX(-150%) rotate(-8deg); }
+}
+
+/* No movement: the elf is out for the same time, then goes back behind the tree. */
+@keyframes elf-peek {
+  0%, 100% { transform: translateX(-150%); }
+}
+
 /* --- Hanging tags ---------------------------------------------------------- */
 
 .hanging-tag {
@@ -518,6 +551,11 @@ dialog::backdrop {
   .light,
   .shaking {
     animation: none;
+  }
+
+  .elf.popping {
+    animation-name: elf-peek;
+    animation-timing-function: linear;
   }
 }
 

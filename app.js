@@ -2,6 +2,7 @@ import { YEARS, makeRandomTag, describeTag, randomItem } from './tags.js';
 import { treeSvg, tagSpots } from './tree.js';
 import { startSnow } from './snow.js';
 import { startSanta } from './santa.js';
+import { startElf } from './elf.js';
 import { startMusic, stopMusic } from './music.js';
 
 // TODO: confirm the date and place with the school office.
@@ -221,10 +222,12 @@ startMusicOnFirstInteraction();
 startSnow(document.querySelector('.page-snow'), { flakeCount: 60, maxSize: 3 });
 startSanta(byId('santa'));
 const globeSnow = startSnow(document.querySelector('.globe-snow'), { flakeCount: 140, maxSize: 3 });
+const elf = startElf(byId('elf'));
 
 byId('glass').addEventListener('click', (event) => {
   if (event.target.closest('.hanging-tag')) return;
   globeSnow.burst();
+  elf.popOut();
   const globe = document.querySelector('.globe');
   globe.classList.remove('shaking');
   void globe.offsetWidth; // restart the CSS animation
