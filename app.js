@@ -185,7 +185,6 @@ function setMusic(on) {
 
 function updateMusicButton() {
   const button = byId('music-button');
-  button.textContent = isMusicPlaying ? '♪ Music on' : '♪ Music off';
   button.setAttribute('aria-pressed', String(isMusicPlaying));
 }
 
