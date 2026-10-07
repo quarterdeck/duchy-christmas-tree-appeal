@@ -5,8 +5,10 @@ import { startSanta } from './santa.js';
 import { startElf } from './elf.js';
 import { startMusic, stopMusic } from './music.js';
 
+const PRIMARY_NEXT_STEP_MESSAGE =
+  "Buy a present for this child. Do not wrap it: Barnardo's must see what is inside. Hand it to your teacher by 30th November.";
 // TODO: confirm the date and place with the school office.
-const NEXT_STEP_MESSAGE =
+const SECONDARY_NEXT_STEP_MESSAGE =
   "Buy a present for this child. Do not wrap it: Barnardo's must see what is inside. Bring it to school reception by [DATE TBC].";
 const SAVED_TAGS_KEY = 'duchy-tree-tags';
 // Saved tags expire, so last year's tags are gone when the appeal starts again.
@@ -82,7 +84,7 @@ function renderTree() {
 
 function showTagCard(tag) {
   byId('tag-text').textContent = `${describeTag(tag)}.`;
-  byId('tag-next').textContent = NEXT_STEP_MESSAGE;
+  byId('tag-next').textContent = tag.isPrimary ? PRIMARY_NEXT_STEP_MESSAGE : SECONDARY_NEXT_STEP_MESSAGE;
   byId('tag-overlay').hidden = false;
   byId('close-tag-button').focus();
 }

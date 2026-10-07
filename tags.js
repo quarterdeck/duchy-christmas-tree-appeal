@@ -1,7 +1,7 @@
 // Tags are random examples, not real children.
 // Gift lists come from the school. Girls-only gifts never go on a boy's tag.
 
-const RECEPTION_TO_YEAR_2_GIFTS = {
+const PRE_SCHOOL_TO_YEAR_2_GIFTS = {
   unisexGifts: [
     'dinosaurs', 'cars', 'monsters', 'Lego', 'princesses', 'colouring books', 'craft',
     'Frozen', 'teddies', 'animals', 'books', 'football', 'jigsaws', 'fairies', 'kittens',
@@ -47,9 +47,10 @@ const YEAR_10_TO_13_GIFTS = {
 };
 
 const GIFTS_BY_YEAR = [
-  RECEPTION_TO_YEAR_2_GIFTS, // Reception
-  RECEPTION_TO_YEAR_2_GIFTS, // Year 1
-  RECEPTION_TO_YEAR_2_GIFTS, // Year 2
+  PRE_SCHOOL_TO_YEAR_2_GIFTS, // Pre-school
+  PRE_SCHOOL_TO_YEAR_2_GIFTS, // Reception
+  PRE_SCHOOL_TO_YEAR_2_GIFTS, // Year 1
+  PRE_SCHOOL_TO_YEAR_2_GIFTS, // Year 2
   YEAR_3_GIFTS,
   YEAR_4_GIFTS,
   YEAR_5_TO_6_GIFTS, // Year 5
@@ -63,13 +64,15 @@ const GIFTS_BY_YEAR = [
   YEAR_10_TO_13_GIFTS, // Year 13
 ];
 
-const YEAR_NAMES = ['Reception', ...Array.from({ length: 13 }, (_, i) => `Year ${i + 1}`)];
+const YEAR_NAMES = ['Pre-school', 'Reception', ...Array.from({ length: 13 }, (_, i) => `Year ${i + 1}`)];
 
-// Reception children are 4–5, Year 1 children are 5–6 … Year 13 students are 17–18.
+// Pre-school children are 3–4, Reception children are 4–5 … Year 13 students are 17–18.
+// Pre-school to Year 6 is primary.
 export const YEARS = YEAR_NAMES.map((name, index) => ({
   name,
-  minAge: index + 4,
-  maxAge: index + 5,
+  minAge: index + 3,
+  maxAge: index + 4,
+  isPrimary: index <= YEAR_NAMES.indexOf('Year 6'),
   ...GIFTS_BY_YEAR[index],
 }));
 
@@ -95,6 +98,7 @@ export function makeRandomTag({ year, gender }) {
     gender: tagGender,
     gift: randomItem(gifts),
     treat: randomItem(TREATS),
+    isPrimary: tagYear.isPrimary,
   };
 }
 

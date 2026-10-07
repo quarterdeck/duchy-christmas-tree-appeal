@@ -6,8 +6,8 @@ such as "A 6 year old boy who loves trains and dinosaurs". They buy a present fo
 unwrapped. Barnardo's sorts and wraps the presents, so it must see what each one is.
 
 The tags are random examples, not real children. Two optional filters above the tree set the
-gender and the year group (Reception = 4–5 … Year 13 = 17–18). With no filters set, a tag can be
-a girl or a boy of any age from 4 to 18.
+gender and the year group (Pre-school = 3–4 … Year 13 = 17–18). With no filters set, a tag can be
+a girl or a boy of any age from 3 to 18.
 
 The title shows the current year. The tree is open from October to December. From January to
 September the page shows "Come back in October" (`isAppealOpen` in `app.js`). This check runs in
@@ -23,7 +23,7 @@ The QR code maker is at
 
 | What | Where |
 | --- | --- |
-| Drop-off date and place shown on the tag | `NEXT_STEP_MESSAGE` in `app.js` |
+| Drop-off date and place shown on the tag | `PRIMARY_NEXT_STEP_MESSAGE` (Pre-school to Year 6) and `SECONDARY_NEXT_STEP_MESSAGE` (Year 7 to 13) in `app.js` |
 | Tag colours and icons on the tree | `TAG_COLOURS` and `TAG_ICONS` in `app.js` |
 | Gift ideas for each year group (unisex and girls only) | `GIFTS_BY_YEAR` in `tags.js` |
 | Songs | `SONGS` in `music.js` |
