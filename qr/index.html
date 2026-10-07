@@ -59,10 +59,6 @@
       width: min(100%, 520px);
       height: auto;
     }
-
-    code {
-      word-break: break-all;
-    }
   </style>
 </head>
 <body>
@@ -74,18 +70,7 @@
         Website address
         <input id="url" type="url" required>
       </label>
-      <label>
-        Where will this QR code go?
-        <select id="source">
-          <option value="">Do not add a source</option>
-          <option value="sticker">Sticker</option>
-          <option value="poster">Poster</option>
-          <option value="email">Email</option>
-        </select>
-      </label>
     </form>
-
-    <p>The QR code opens: <code id="final-url"></code></p>
 
     <div class="actions">
       <button type="button" id="download-svg">Download SVG</button>
@@ -120,13 +105,6 @@
     const TREE_COLOURS = { g: '#2a7a3b', s: '#f2b134', t: '#7a4a24' };
 
     const byId = (id) => document.getElementById(id);
-
-    function finalUrl() {
-      const url = new URL(byId('url').value);
-      const source = byId('source').value;
-      if (source) url.searchParams.set('src', source);
-      return url.href;
-    }
 
     // QR code as SVG, centred on (centreX, centreY), with the middle left free for the tree.
     function qrGroup(text, centreX, centreY, size) {
@@ -172,12 +150,11 @@
 
     // Plain square QR code on white, with a quiet zone around it.
     function qrSvg() {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000"><rect width="1000" height="1000" fill="#fff"/>${qrGroup(finalUrl(), 500, 500, 840)}</svg>`;
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000"><rect width="1000" height="1000" fill="#fff"/>${qrGroup(byId('url').value, 500, 500, 840)}</svg>`;
     }
 
     function render() {
       if (!byId('url').checkValidity()) return;
-      byId('final-url').textContent = finalUrl();
       byId('preview').innerHTML = qrSvg();
     }
 
@@ -189,11 +166,6 @@
       setTimeout(() => URL.revokeObjectURL(link.href), 1000);
     }
 
-    function fileName(extension) {
-      const source = byId('source').value || 'qr';
-      return `duchy-tree-${source}.${extension}`;
-    }
-
     function downloadPng() {
       const image = new Image();
       image.onload = () => {
@@ -201,7 +173,7 @@
         canvas.width = 3000;
         canvas.height = 3000;
         canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
-        canvas.toBlob((blob) => download(blob, fileName('png')), 'image/png');
+        canvas.toBlob((blob) => download(blob, 'duchy-tree-qr.png'), 'image/png');
       };
       image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qrSvg())}`;
     }
@@ -209,7 +181,7 @@
     byId('url').value = new URL('../', location.href).href;
     byId('options').addEventListener('input', render);
     byId('download-svg').addEventListener('click', () =>
-      download(new Blob([qrSvg()], { type: 'image/svg+xml' }), fileName('svg'))
+      download(new Blob([qrSvg()], { type: 'image/svg+xml' }), 'duchy-tree-qr.svg')
     );
     byId('download-png').addEventListener('click', downloadPng);
     render();
