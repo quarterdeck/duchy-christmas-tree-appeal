@@ -3,15 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>QR Sticker Maker</title>
+  <title>QR Code Maker</title>
   <meta name="robots" content="noindex">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
   <style>
     :root {
       color-scheme: light;
-      --night: #0b1530;
-      --red: #b3121f;
-      --gold: #f2b134;
     }
 
     body {
@@ -70,7 +67,7 @@
 </head>
 <body>
   <main>
-    <h1>QR sticker and poster maker</h1>
+    <h1>QR code maker</h1>
 
     <form id="options">
       <label>
@@ -86,14 +83,6 @@
           <option value="email">Email</option>
         </select>
       </label>
-      <label>
-        Design
-        <select id="design">
-          <option value="sticker">Round glitter sticker</option>
-          <option value="poster">A4 poster</option>
-          <option value="square">Plain square QR code</option>
-        </select>
-      </label>
     </form>
 
     <p>The QR code opens: <code id="final-url"></code></p>
@@ -106,20 +95,15 @@
     <h2>Preview</h2>
     <div id="preview"></div>
 
-    <h2>Before you order glitter stickers</h2>
+    <h2>Before you print</h2>
     <ul>
-      <li>The red ring is for glitter. Keep the white circle and the QR code <strong>solid white and black, with no glitter</strong>. Glitter behind the code lowers the contrast and phones can fail to scan it.</li>
-      <li>Ask Sticker Mule for a proof. Scan the proof with an iPhone and an Android phone before you approve it.</li>
-      <li>Do not make the sticker smaller than 2 in (51 mm).</li>
       <li>The QR code uses the highest error correction (level H), so the small tree in the centre does not stop it from scanning. A long website address makes a denser code with no tree.</li>
-      <li>Test a paper print at the real size first.</li>
+      <li>Keep the white margin around the code. Phones need it to find the code.</li>
+      <li>Test a paper print at the real size with an iPhone and an Android phone.</li>
     </ul>
   </main>
 
   <script>
-    const SVG_FONT = "'Arial Black', 'Arial Bold', Arial, sans-serif";
-    const RING_TEXT = '★ SCAN ME ★ DUCHY CHRISTMAS TREE APPEAL ★ IN AID OF BARNARDO\'S ';
-
     // Small pixel tree for the centre of the QR code. g = green, s = star, t = trunk.
     const CENTRE_TREE = [
       '....s....',
@@ -136,7 +120,6 @@
     const TREE_COLOURS = { g: '#2a7a3b', s: '#f2b134', t: '#7a4a24' };
 
     const byId = (id) => document.getElementById(id);
-    let logoDataUrl = '';
 
     function finalUrl() {
       const url = new URL(byId('url').value);
@@ -187,68 +170,15 @@
       return `<path d="${path}" fill="#000" shape-rendering="crispEdges"/><g shape-rendering="crispEdges">${tree}</g>`;
     }
 
-    function snowflake(x, y, size) {
-      const p = size / 5;
-      const cells = [[2, 0], [0, 1], [2, 1], [4, 1], [1, 2], [2, 2], [3, 2], [0, 3], [2, 3], [4, 3], [2, 4], [0, 2], [4, 2]];
-      return cells.map(([cx, cy]) => `<rect x="${x + cx * p}" y="${y + cy * p}" width="${p}" height="${p}" fill="#fff"/>`).join('');
-    }
-
-    // Round sticker on a 1000 × 1000 canvas. The red ring is the glitter area.
-    function stickerContent(text) {
-      const flakes = [45, 135, 225, 315]
-        .map((degrees) => {
-          const radians = (degrees * Math.PI) / 180;
-          return snowflake(500 + Math.cos(radians) * 445 - 20, 500 + Math.sin(radians) * 445 - 20, 40);
-        })
-        .join('');
-      return `
-        <circle cx="500" cy="500" r="496" fill="#b3121f"/>
-        <path id="ring" d="M500 500 m-428 0 a428 428 0 1 1 856 0 a428 428 0 1 1 -856 0" fill="none"/>
-        <text font-family="${SVG_FONT}" font-size="46" fill="#fff" letter-spacing="2">
-          <textPath href="#ring" startOffset="0">${RING_TEXT}</textPath>
-        </text>
-        ${flakes}
-        <circle cx="500" cy="500" r="402" fill="#fff"/>
-        ${qrGroup(text, 500, 500, 440)}`;
-    }
-
-    function stickerSvg(text) {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">${stickerContent(text)}</svg>`;
-    }
-
     // Plain square QR code on white, with a quiet zone around it.
-    function squareSvg(text) {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000"><rect width="1000" height="1000" fill="#fff"/>${qrGroup(text, 500, 500, 840)}</svg>`;
-    }
-
-    // A4 poster: 2100 × 2970 units (10 units per mm).
-    function posterSvg(text) {
-      const logo = logoDataUrl
-        ? `<rect x="650" y="2480" width="800" height="240" fill="#fff"/><image href="${logoDataUrl}" x="700" y="2500" width="700" height="200"/>`
-        : '';
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 2970" width="2100" height="2970">
-        <rect width="2100" height="2970" fill="#0b1530"/>
-        <text x="1050" y="300" text-anchor="middle" font-family="${SVG_FONT}" font-size="130" fill="#f2b134">Duchy Christmas</text>
-        <text x="1050" y="460" text-anchor="middle" font-family="${SVG_FONT}" font-size="130" fill="#f2b134">Tree Appeal</text>
-        <text x="1050" y="640" text-anchor="middle" font-family="${SVG_FONT}" font-size="60" fill="#fff">Scan the code. Pick a tag from our tree.</text>
-        <text x="1050" y="730" text-anchor="middle" font-family="${SVG_FONT}" font-size="60" fill="#fff">Buy a present for a child this Christmas.</text>
-        <g transform="translate(400 850) scale(1.3)">${stickerContent(text)}</g>
-        <text x="1050" y="2300" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" fill="#fff">${text.replace(/&/g, '&amp;')}</text>
-        <text x="1050" y="2420" text-anchor="middle" font-family="${SVG_FONT}" font-size="54" fill="#fff">In aid of</text>
-        ${logo}
-      </svg>`;
-    }
-
-    function currentSvg() {
-      const text = finalUrl();
-      const designs = { sticker: stickerSvg, poster: posterSvg, square: squareSvg };
-      return designs[byId('design').value](text);
+    function qrSvg() {
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000"><rect width="1000" height="1000" fill="#fff"/>${qrGroup(finalUrl(), 500, 500, 840)}</svg>`;
     }
 
     function render() {
       if (!byId('url').checkValidity()) return;
       byId('final-url').textContent = finalUrl();
-      byId('preview').innerHTML = currentSvg();
+      byId('preview').innerHTML = qrSvg();
     }
 
     function download(blob, fileName) {
@@ -261,41 +191,28 @@
 
     function fileName(extension) {
       const source = byId('source').value || 'qr';
-      return `duchy-tree-${byId('design').value}-${source}.${extension}`;
+      return `duchy-tree-${source}.${extension}`;
     }
 
     function downloadPng() {
-      const svg = currentSvg();
-      const [, width, height] = svg.match(/viewBox="0 0 (\d+) (\d+)"/).map(Number);
-      const scale = 3;
       const image = new Image();
       image.onload = () => {
         const canvas = document.createElement('canvas');
-        canvas.width = width * scale;
-        canvas.height = height * scale;
+        canvas.width = 3000;
+        canvas.height = 3000;
         canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
         canvas.toBlob((blob) => download(blob, fileName('png')), 'image/png');
       };
-      image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-    }
-
-    async function loadLogo() {
-      try {
-        const response = await fetch('../images/barnardos-logo.svg');
-        const svgText = await response.text();
-        logoDataUrl = `data:image/svg+xml;base64,${btoa(svgText)}`;
-      } catch {
-        logoDataUrl = '';
-      }
+      image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qrSvg())}`;
     }
 
     byId('url').value = new URL('../', location.href).href;
     byId('options').addEventListener('input', render);
     byId('download-svg').addEventListener('click', () =>
-      download(new Blob([currentSvg()], { type: 'image/svg+xml' }), fileName('svg'))
+      download(new Blob([qrSvg()], { type: 'image/svg+xml' }), fileName('svg'))
     );
     byId('download-png').addEventListener('click', downloadPng);
-    loadLogo().then(render);
+    render();
   </script>
 </body>
 </html>

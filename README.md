@@ -16,7 +16,7 @@ the browser and uses the device's date, so it only hides the tree; it does not l
 Plain HTML, CSS and JavaScript. No build step. It runs on GitHub Pages:
 <https://quarterdeck.github.io/duchy-christmas-tree-appeal/>
 
-The QR sticker and poster maker is at
+The QR code maker is at
 <https://quarterdeck.github.io/duchy-christmas-tree-appeal/qr/>.
 
 ## Change things
@@ -40,7 +40,7 @@ The QR sticker and poster maker is at
 - `music.js`: 8-bit carols made with the Web Audio API. Music starts after the first tap,
   because browsers block sound before that. On iOS 16.4 or later it plays with the silent switch
   on. On older iOS, turn the silent switch off.
-- `qr/index.html`: makes the QR sticker and A4 poster as SVG or PNG.
+- `qr/index.html`: makes a plain square QR code as SVG or PNG.
 - `images/barnardos-logo.svg`: Barnardo's logo. Check Barnardo's brand rules before you print it.
 
 Picked tags are kept in the browser's `localStorage`, so people can see them again on the same
@@ -53,14 +53,13 @@ are not kept.
 The site publishes from the `main` branch, `/ (root)`. Every push to `main` updates the live site.
 
 1. Open the QR maker. The website address is filled in for you.
-2. Download the sticker and poster files. Make the QR codes only after the address is final:
+2. Download the QR code. Make the QR codes only after the address is final:
    if the address changes, the printed codes stop working.
 
 ## Before you print
 
-- Order a proof of the glitter sticker. Scan it with an iPhone and an Android phone.
-- Keep the QR area solid black and white. Glitter only on the red ring.
-- Fonts in the SVG files are Arial Black. If the printer does not have it, use the PNG file.
+- Order a proof. Scan it with an iPhone and an Android phone.
+- Keep the QR code solid black and white, with the white margin around it.
 
 ## Licence
 
