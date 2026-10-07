@@ -6,6 +6,7 @@
   --gold: #f2b134;
   --gold-dark: #8a5a00;
   --green: #2a7a3b;
+  --blue: #3b8fd9;
   --paper: #fdf6e3;
   --ink: #3a1d0f;
   --white: #ffffff;
@@ -119,10 +120,67 @@ h2 {
 
 .pixel-button:focus-visible,
 .hanging-tag:focus-visible .tag-body,
-.group-list button:focus-visible,
+.gender-filter input:focus-visible + span,
+.year-filter select:focus-visible,
 .link-button:focus-visible {
   outline: 3px dashed var(--gold);
   outline-offset: 3px;
+}
+
+/* --- Filters -------------------------------------------------------------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px 16px;
+  margin: 0 0 16px;
+  font-size: 10px;
+}
+
+.gender-filter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Hidden, but screen readers still read them */
+.gender-filter legend,
+.gender-filter input,
+.year-filter span {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.gender-filter label span {
+  display: block;
+  padding: 8px 10px;
+  font-size: 9px;
+  border: 3px solid var(--white);
+  background: var(--night-light);
+  cursor: pointer;
+}
+
+.gender-filter input:checked + span {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.year-filter select {
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 9px;
+  color: var(--white);
+  background: var(--night-light);
+  border: 3px solid var(--white);
+  border-radius: 0;
 }
 
 /* --- Snow globe ------------------------------------------------------------ */
@@ -252,8 +310,8 @@ h2 {
   justify-content: center;
   height: var(--tag-height);
   padding-top: 6px;
-  font-size: 8px;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 1;
   background: var(--red);
   color: var(--white);
   clip-path: polygon(25% 0, 75% 0, 100% 22%, 100% 100%, 0 100%, 0 22%);
@@ -271,10 +329,18 @@ h2 {
   background: var(--night);
 }
 
-.hanging-tag.boy .tag-body,
 .hanging-tag.gold .tag-body {
   background: var(--gold);
   color: var(--ink);
+}
+
+.hanging-tag.blue .tag-body {
+  background: var(--blue);
+}
+
+.hanging-tag.white .tag-body {
+  background: var(--paper);
+  color: var(--red);
 }
 
 .hanging-tag:hover .tag-body,
@@ -294,70 +360,6 @@ h2 {
 @keyframes swing {
   from { transform: rotate(-7deg); }
   to { transform: rotate(7deg); }
-}
-
-/* --- List and surprise ------------------------------------------------------ */
-
-.below-globe {
-  display: grid;
-  gap: 16px;
-  justify-items: center;
-}
-
-.group-list {
-  width: 100%;
-  font-size: 10px;
-}
-
-.group-list summary {
-  cursor: pointer;
-  padding: 8px;
-}
-
-.group-list ul {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin: 8px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.group-list button {
-  width: 100%;
-  padding: 10px 4px;
-  font-size: 9px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.4);
-}
-
-/* --- Group view ------------------------------------------------------------- */
-
-.garland {
-  display: grid;
-  grid-template-columns: repeat(4, 64px);
-  grid-auto-rows: 104px;
-  justify-content: center;
-  column-gap: 12px;
-  margin: 0 0 24px;
-  /* A gold rope at the top of each row */
-  background: repeating-linear-gradient(transparent 0 2px, var(--gold) 2px 5px, transparent 5px 104px);
-}
-
-.garland .hanging-tag {
-  --tag-width: 52px;
-  position: relative;
-  margin: 4px 0 0 6px;
-}
-
-.garland .tag-body {
-  font-size: 16px;
-}
-
-@media (min-width: 420px) {
-  .garland {
-    grid-template-columns: repeat(5, 64px);
-  }
 }
 
 /* --- Picked tag card ------------------------------------------------------- */

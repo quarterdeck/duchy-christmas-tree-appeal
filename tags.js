@@ -3,25 +3,12 @@
 const YEAR_NAMES = ['Reception', ...Array.from({ length: 13 }, (_, i) => `Year ${i + 1}`)];
 
 // Reception children are 4–5, Year 1 children are 5–6 … Year 13 students are 17–18.
-export const YEAR_GROUPS = YEAR_NAMES.flatMap((name, index) =>
-  ['girl', 'boy'].map((gender) => ({
-    id: `${index === 0 ? 'R' : `Y${index}`}-${gender === 'girl' ? 'G' : 'B'}`,
-    shortName: index === 0 ? 'R' : `Y${index}`,
-    name: `${name} ${gender === 'girl' ? 'Girls' : 'Boys'}`,
-    gender,
-    minAge: index + 4,
-    maxAge: index + 5,
-  }))
-);
-
-export const SURPRISE_GROUP = {
-  id: 'ANY',
-  shortName: '?',
-  name: 'Surprise me',
-  gender: null,
-  minAge: 4,
-  maxAge: 18,
-};
+export const YEARS = YEAR_NAMES.map((name, index) => ({
+  shortName: index === 0 ? 'R' : `Y${index}`,
+  name,
+  minAge: index + 4,
+  maxAge: index + 5,
+}));
 
 const INTERESTS_BY_AGE = [
   {
@@ -70,7 +57,7 @@ function randomInteger(min, max) {
   return min + Math.floor(Math.random() * (max - min + 1));
 }
 
-function randomItem(list) {
+export function randomItem(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
@@ -81,12 +68,15 @@ function twoDifferentInterests(age) {
   return [first, second];
 }
 
-export function makeRandomTag(group) {
-  const age = randomInteger(group.minAge, group.maxAge);
+// `year` is an item of YEARS, or null for any age from 4 to 18.
+// `gender` is 'girl', 'boy', or null for either.
+export function makeRandomTag({ year, gender }) {
+  const age = year ? randomInteger(year.minAge, year.maxAge) : randomInteger(4, 18);
+  const tagGender = gender ?? randomItem(['girl', 'boy']);
   return {
-    code: `${group.id}-${randomInteger(1000, 9999)}`,
+    code: `${year ? year.shortName : 'ANY'}-${tagGender === 'girl' ? 'G' : 'B'}-${randomInteger(1000, 9999)}`,
     age,
-    gender: group.gender ?? randomItem(['girl', 'boy']),
+    gender: tagGender,
     interests: twoDifferentInterests(age),
   };
 }

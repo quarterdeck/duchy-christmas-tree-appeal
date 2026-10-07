@@ -1,4 +1,4 @@
-import { YEAR_GROUPS, SURPRISE_GROUP, makeRandomTag, describeTag } from './tags.js';
+import { YEARS, makeRandomTag, describeTag, randomItem } from './tags.js';
 import { treeSvg, tagSpots } from './tree.js';
 import { startSnow } from './snow.js';
 import { startMusic, stopMusic } from './music.js';
@@ -6,7 +6,6 @@ import { startMusic, stopMusic } from './music.js';
 // TODO: confirm the date and place with the school office.
 const NEXT_STEP_MESSAGE =
   'Buy a present, wrap it, write the tag code on it, and bring it to school reception by [DATE TBC].';
-const TAGS_PER_GROUP = 20;
 const SAVED_TAGS_KEY = 'duchy-tree-tags';
 // Saved tags expire, so last year's tags are gone when the appeal starts again.
 const SAVED_TAG_LIFETIME_MS = 183 * 24 * 60 * 60 * 1000;
@@ -41,63 +40,40 @@ function swingStyle(element) {
 
 // --- Tree view -------------------------------------------------------------
 
+// No green: it would hide against the tree.
+const TAG_COLOURS = ['red', 'gold', 'blue', 'white'];
+const TAG_ICONS = ['❄', '★', '✦'];
+
+// No filter set means any year and either gender.
+function chosenFilters() {
+  const yearIndex = byId('year-filter').value;
+  const gender = document.querySelector('input[name="gender"]:checked').value;
+  return { year: yearIndex === '' ? null : YEARS[yearIndex], gender: gender || null };
+}
+
+function renderFilters() {
+  YEARS.forEach((year, index) => byId('year-filter').add(new Option(year.name, index)));
+}
+
 function renderTree() {
   byId('tree-art').innerHTML = treeSvg();
 
-  const spots = tagSpots();
-  YEAR_GROUPS.forEach((group, index) => {
+  tagSpots().forEach((spot, index) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = `hanging-tag ${group.gender}`;
-    button.style.left = `${spots[index].left}%`;
-    button.style.top = `${spots[index].top}%`;
-    button.setAttribute('aria-label', group.name);
-    button.innerHTML = `<span class="tag-body"><span>${group.shortName}</span><span>${group.gender === 'girl' ? '♀' : '♂'}</span></span>`;
-    swingStyle(button);
-    button.addEventListener('click', () => showGroup(group));
-    byId('tree-tags').append(button);
-
-    const listItem = document.createElement('li');
-    const listButton = document.createElement('button');
-    listButton.type = 'button';
-    listButton.textContent = group.name;
-    listButton.addEventListener('click', () => showGroup(group));
-    listItem.append(listButton);
-    byId('group-list').append(listItem);
-  });
-}
-
-// --- Group view --------------------------------------------------------------
-
-function showGroup(group) {
-  byId('group-title').textContent = group.name;
-  const garland = byId('group-tags');
-  garland.replaceChildren();
-
-  for (let number = 1; number <= TAGS_PER_GROUP; number++) {
-    const tag = makeRandomTag(group);
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = `hanging-tag mystery ${number % 2 ? 'red' : 'gold'}`;
-    button.setAttribute('aria-label', `Mystery tag ${number}`);
-    button.innerHTML = '<span class="tag-body"><span>❄</span></span>';
+    button.className = `hanging-tag ${randomItem(TAG_COLOURS)}`;
+    button.style.left = `${spot.left}%`;
+    button.style.top = `${spot.top}%`;
+    button.setAttribute('aria-label', `Christmas tag ${index + 1}`);
+    button.innerHTML = `<span class="tag-body"><span aria-hidden="true">${randomItem(TAG_ICONS)}</span></span>`;
     swingStyle(button);
     button.addEventListener('click', () => {
-      pickTag(tag, button);
+      pickTag(makeRandomTag(chosenFilters()), button);
       button.disabled = true;
       button.classList.add('taken');
     });
-    garland.append(button);
-  }
-
-  byId('tree-view').hidden = true;
-  byId('group-view').hidden = false;
-  window.scrollTo({ top: 0 });
-}
-
-function showTree() {
-  byId('group-view').hidden = true;
-  byId('tree-view').hidden = false;
+    byId('tree-tags').append(button);
+  });
 }
 
 // --- Picked tag --------------------------------------------------------------
@@ -224,6 +200,7 @@ function startMusicOnFirstInteraction() {
 
 // --- Start -------------------------------------------------------------------
 
+renderFilters();
 renderTree();
 updateMyTagsButton();
 updateMusicButton();
@@ -241,8 +218,6 @@ byId('glass').addEventListener('click', (event) => {
   globe.classList.add('shaking');
 });
 
-byId('surprise-button').addEventListener('click', (event) => pickTag(makeRandomTag(SURPRISE_GROUP), event.currentTarget));
-byId('back-button').addEventListener('click', showTree);
 byId('music-button').addEventListener('click', () => setMusic(!isMusicPlaying));
 byId('print-button').addEventListener('click', () => window.print());
 byId('close-tag-button').addEventListener('click', closeTagCard);

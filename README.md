@@ -1,11 +1,12 @@
 # Duchy Christmas Tree Appeal
 
 A virtual Christmas tree for Duchy College and Duchy Prep School, in aid of Barnardo's.
-People scan a QR code, pick a year-group tag on a pixel-art tree in a snow globe, and get a tag
+People scan a QR code, tap a tag on a pixel-art tree in a snow globe, and get a tag
 such as "A 6 year old boy who loves trains and dinosaurs". They buy and wrap a present for that tag.
 
-The tags are random examples, not real children. A year-group tag sets the age range
-(Reception = 4–5 … Year 13 = 17–18) and the gender. "Surprise me" can be any age from 4 to 18.
+The tags are random examples, not real children. Two optional filters above the tree set the
+gender and the year group (Reception = 4–5 … Year 13 = 17–18). With no filters set, a tag can be
+a girl or a boy of any age from 4 to 18.
 
 Plain HTML, CSS and JavaScript. No build step. It runs on GitHub Pages:
 <https://quarterdeck.github.io/duchy-christmas-tree-appeal/>
@@ -18,7 +19,7 @@ The QR sticker and poster maker is at
 | What | Where |
 | --- | --- |
 | Drop-off date and place shown on the tag | `NEXT_STEP_MESSAGE` in `app.js` |
-| Number of tags per year group | `TAGS_PER_GROUP` in `app.js` |
+| Tag colours and icons on the tree | `TAG_COLOURS` and `TAG_ICONS` in `app.js` |
 | Interests for each age band | `INTERESTS_BY_AGE` in `tags.js` |
 | Songs | `SONGS` in `music.js` |
 | Colours | `:root` in `styles.css` |

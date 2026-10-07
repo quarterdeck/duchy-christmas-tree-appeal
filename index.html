@@ -29,7 +29,22 @@
     </p>
 
     <section id="tree-view">
-      <p class="intro">Pick a tag for your year group. Then buy a present for a child who might not get much this Christmas.</p>
+      <p class="intro">Tap a tag on the tree. Then buy a present for a child who might not get much this Christmas.</p>
+
+      <div class="filters">
+        <fieldset class="gender-filter">
+          <legend>Girl or boy</legend>
+          <label><input type="radio" name="gender" value="" checked><span>Either</span></label>
+          <label><input type="radio" name="gender" value="girl"><span>Girl</span></label>
+          <label><input type="radio" name="gender" value="boy"><span>Boy</span></label>
+        </fieldset>
+        <label class="year-filter">
+          <span>Year group</span>
+          <select id="year-filter">
+            <option value="">Any year</option>
+          </select>
+        </label>
+      </div>
 
       <div class="globe">
         <div class="glass" id="glass">
@@ -43,21 +58,6 @@
         </div>
       </div>
       <p class="hint">Tap the glass to shake the snow!</p>
-
-      <div class="below-globe">
-        <button type="button" class="pixel-button" id="surprise-button">🎁 Surprise me</button>
-        <details class="group-list">
-          <summary>Pick from a list</summary>
-          <ul id="group-list"></ul>
-        </details>
-      </div>
-    </section>
-
-    <section id="group-view" hidden>
-      <h2 id="group-title"></h2>
-      <p class="intro">Each tag is a different child. Pick one!</p>
-      <div class="garland" id="group-tags"></div>
-      <button type="button" class="pixel-button" id="back-button">← Back to the tree</button>
     </section>
   </main>
 
