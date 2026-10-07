@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Duchy Christmas Tree Appeal</title>
+  <meta name="description" content="Pick a tag from the Duchy College and Duchy Prep School Christmas tree and buy a present for a child supported by Barnardo's.">
+  <meta name="theme-color" content="#0b1530">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffd23f' d='M3 0h2v1H3z'/%3E%3Cpath fill='%232a7a3b' d='M3 1h2v1H3zM2 2h4v1H2zM2 3h4v1H2zM1 4h6v1H1zM0 5h8v1H0z'/%3E%3Cpath fill='%237a4a24' d='M3 6h2v2H3z'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <canvas class="page-snow" aria-hidden="true"></canvas>
+
+  <header class="top-bar">
+    <button type="button" class="pixel-button small" id="music-button" aria-pressed="false">♪ Music off</button>
+    <button type="button" class="pixel-button small" id="my-tags-button" hidden>My tags (0)</button>
+  </header>
+
+  <main>
+    <h1>Duchy Christmas<br>Tree Appeal</h1>
+    <p class="partner">
+      In aid of
+      <img src="images/barnardos-logo.svg" alt="Barnardo's" width="144" height="36">
+    </p>
+
+    <section id="tree-view">
+      <p class="intro">Pick a tag for your year group. Then buy a present for a child who might not get one this Christmas.</p>
+
+      <div class="globe">
+        <div class="glass" id="glass">
+          <div id="tree-art"></div>
+          <canvas class="globe-snow" aria-hidden="true"></canvas>
+          <div class="tree-tags" id="tree-tags"></div>
+          <div class="shine" aria-hidden="true"></div>
+        </div>
+        <div class="base" aria-hidden="true">
+          <span class="plate">Duchy × Barnardo's</span>
+        </div>
+      </div>
+      <p class="hint">Tap the glass to shake the snow!</p>
+
+      <div class="below-globe">
+        <button type="button" class="pixel-button" id="surprise-button">🎁 Surprise me</button>
+        <details class="group-list">
+          <summary>Pick from a list</summary>
+          <ul id="group-list"></ul>
+        </details>
+      </div>
+    </section>
+
+    <section id="group-view" hidden>
+      <h2 id="group-title"></h2>
+      <p class="intro">Each tag is a different child. Pick one!</p>
+      <div class="garland" id="group-tags"></div>
+      <button type="button" class="pixel-button" id="back-button">← Back to the tree</button>
+    </section>
+  </main>
+
+  <div class="tag-overlay" id="tag-overlay" hidden>
+    <article class="tag-card" id="tag-card" aria-live="polite">
+      <span class="tag-hole" aria-hidden="true"></span>
+      <p class="tag-heading">Your Christmas tag</p>
+      <p class="tag-text" id="tag-text"></p>
+      <p class="tag-code">Tag code: <strong id="tag-code"></strong></p>
+      <p class="tag-next" id="tag-next"></p>
+      <div class="tag-actions">
+        <button type="button" class="pixel-button small" id="print-button">Print tag</button>
+        <button type="button" class="pixel-button small" id="close-tag-button">Done</button>
+      </div>
+    </article>
+  </div>
+
+  <dialog id="my-tags-dialog">
+    <h2>My tags</h2>
+    <p>Saved on this device.</p>
+    <ul id="my-tags-list"></ul>
+    <form method="dialog">
+      <button class="pixel-button small">Close</button>
+    </form>
+  </dialog>
+</body>
+</html>
