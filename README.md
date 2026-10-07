@@ -30,7 +30,8 @@ The QR sticker and poster maker is at
 - `tree.js`: the pixel-art tree (SVG) and where the tags hang.
 - `snow.js`: falling snow. Tap the globe to shake it.
 - `music.js`: 8-bit carols made with the Web Audio API. Music starts after the first tap,
-  because browsers block sound before that. On an iPhone, the silent switch also mutes it.
+  because browsers block sound before that. On iOS 16.4 or later it plays with the silent switch
+  on. On older iOS, turn the silent switch off.
 - `qr/index.html`: makes the QR sticker and A4 poster as SVG or PNG.
 - `images/barnardos-logo.svg`: Barnardo's logo. Check Barnardo's brand rules before you print it.
 

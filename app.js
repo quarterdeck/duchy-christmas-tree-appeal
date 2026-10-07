@@ -193,10 +193,12 @@ function renderMyTags() {
 
 // --- Music -------------------------------------------------------------------
 
-let isMusicOn = readStorage(MUSIC_KEY, true);
+let isMusicWanted = readStorage(MUSIC_KEY, true);
+let isMusicPlaying = false;
 
 function setMusic(on) {
-  isMusicOn = on;
+  isMusicWanted = on;
+  isMusicPlaying = on;
   writeStorage(MUSIC_KEY, on);
   if (on) startMusic();
   else stopMusic();
@@ -205,16 +207,16 @@ function setMusic(on) {
 
 function updateMusicButton() {
   const button = byId('music-button');
-  button.textContent = isMusicOn ? '♪ Music on' : '♪ Music off';
-  button.setAttribute('aria-pressed', String(isMusicOn));
+  button.textContent = isMusicPlaying ? '♪ Music on' : '♪ Music off';
+  button.setAttribute('aria-pressed', String(isMusicPlaying));
 }
 
 // Browsers only allow sound after the first tap or key press.
 function startMusicOnFirstInteraction() {
-  const start = (event) => {
+  const start = () => {
     window.removeEventListener('click', start);
     window.removeEventListener('keydown', start);
-    if (isMusicOn && event.target !== byId('music-button')) setMusic(true);
+    if (isMusicWanted) setMusic(true);
   };
   window.addEventListener('click', start);
   window.addEventListener('keydown', start);
@@ -241,7 +243,7 @@ byId('glass').addEventListener('click', (event) => {
 
 byId('surprise-button').addEventListener('click', (event) => pickTag(makeRandomTag(SURPRISE_GROUP), event.currentTarget));
 byId('back-button').addEventListener('click', showTree);
-byId('music-button').addEventListener('click', () => setMusic(!isMusicOn));
+byId('music-button').addEventListener('click', () => setMusic(!isMusicPlaying));
 byId('print-button').addEventListener('click', () => window.print());
 byId('close-tag-button').addEventListener('click', closeTagCard);
 document.addEventListener('keydown', (event) => {

@@ -119,7 +119,10 @@ export function startMusic() {
     audioContext.resume();
     return;
   }
+  // iOS mutes Web Audio when the silent switch is on, unless the page asks for "playback".
+  if (navigator.audioSession) navigator.audioSession.type = 'playback';
   audioContext = new AudioContext();
+  audioContext.resume();
   masterVolume = audioContext.createGain();
   masterVolume.gain.value = 0.5;
   masterVolume.connect(audioContext.destination);
