@@ -29,20 +29,22 @@ const YEAR_4_GIFTS = {
 
 const YEAR_5_TO_6_GIFTS = {
   unisexGifts: YEAR_4_TO_6_UNISEX_GIFTS,
-  girlsOnlyGifts: ['make up', 'toiletries (Primark, Lush)'],
+  girlsOnlyGifts: ['make up', 'Primark', 'Lush'],
 };
 
-const COOL_TOILETRIES =
-  'cool toiletries (Indu, Lav Teens, Blossom & Beau, Bare la Terre, Sundae whipped shower foam, Monday hair care, Bubble)';
+const COOL_TOILETRIES = [
+  'Indu', 'Lav Teens', 'Blossom & Beau', 'Bare la Terre', 'Sundae whipped shower foam',
+  'Monday hair care', 'Bubble',
+];
 const SECONDARY_GIRLS_ONLY_GIFTS = ['make up', 'crafts', 'manicure set', 'nail polish'];
 
 const YEAR_7_TO_9_GIFTS = {
-  unisexGifts: ['animals', 'books', 'football', 'games', 'puzzles', COOL_TOILETRIES],
+  unisexGifts: ['animals', 'books', 'football', 'games', 'puzzles', ...COOL_TOILETRIES],
   girlsOnlyGifts: SECONDARY_GIRLS_ONLY_GIFTS,
 };
 
 const YEAR_10_TO_13_GIFTS = {
-  unisexGifts: ['books', 'football', 'games', 'puzzles', COOL_TOILETRIES],
+  unisexGifts: ['books', 'football', 'games', 'puzzles', ...COOL_TOILETRIES],
   girlsOnlyGifts: SECONDARY_GIRLS_ONLY_GIFTS,
 };
 
