@@ -655,8 +655,13 @@ dialog::backdrop {
 }
 
 @media print {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
   body {
-    background: none;
+    background: #fff;
   }
 
   body > :not(.tag-overlay) {
@@ -665,9 +670,27 @@ dialog::backdrop {
 
   .tag-overlay {
     position: static;
+    display: block;
+    padding: 0;
     background: none;
+    overflow: visible;
   }
 
+  .tag-card {
+    width: auto;
+    padding: 0;
+    background: none;
+    color: #000;
+    border: none;
+    box-shadow: none;
+    clip-path: none;
+  }
+
+  .tag-heading {
+    color: #000;
+  }
+
+  .tag-hole,
   .tag-actions {
     display: none;
   }
